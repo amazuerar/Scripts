@@ -44,3 +44,23 @@ date /T >> %operation%.txt
 echo "System hour" >> %operation%.txt
 time /T >> %operation%.txt
 goto local
+
+:local_dns
+cls
+echo ===================
+echo = Menu: DNS Cache =
+echo ===================
+set /p operation=Write the destination file name: 
+echo "DNS Cache Information" > %operation%.txt
+ipconfig /displaydns >> %operation%.txt
+goto local
+
+:local_system_information
+cls
+echo ============================
+echo = Menu: System Information =
+echo ============================
+set /p operation=Write the destination file name: 
+echo "System Information" > %operation%.txt
+psinfo >> %operation%.txt
+goto begin
