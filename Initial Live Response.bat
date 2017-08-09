@@ -23,13 +23,17 @@ echo [1] Name, Date and Time
 echo [2] DNS Cache
 echo [3] System Information
 echo [4] Machine SID
-echo [5] Back
+echo [5] Network Interfaces
+echo [6] Network Connections
+echo [7] Back
 set /p operation=Option:  
 if %operation%==1 goto local_name_date_time
 if %operation%==2 goto local_dns
 if %operation%==3 goto local_system_information
 if %operation%==4 goto local_SID
-if %operation%==5 goto main
+if %operation%==5 goto local_network_interfaces
+if %operation%==6 goto local_network_connections
+if %operation%==7 goto main
 
 :local_name_date_time
 cls
@@ -62,5 +66,28 @@ echo = Menu: System Information =
 echo ============================
 set /p operation=Write the destination file name: 
 echo "System Information" > %operation%.txt
-psinfo >> %operation%.txt
-goto begin
+systeminfo >> %operation%.txt
+goto local
+
+:local_network_interfaces
+cls
+echo =============================
+echo = Menu: Network Interfaces  =
+echo =============================
+set /p operation=Write the destination file name: 
+echo "Network Interfaces Information" > %operation%.txt
+ipconfig /all >> %operation%.txt
+goto local
+
+:local_network_connections
+cls
+echo =============================
+echo = Menu: Network Connections =
+echo =============================
+echo This action can take a few minutes
+set /p operation=Write the destination file name: 
+echo "Network Connections Information" > %operation%.txt
+netstat -e -s >> %operation%.txt
+netstat -a >> %operation%.txt
+netstat -t >> %operation%.txt
+goto local
